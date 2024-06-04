@@ -45,6 +45,24 @@ search_btn.addEventListener("click", (e) => {
     });
     search_field.value = "";
     loadTable1(filteredArray);
+    sort_asc.addEventListener("click", (e) => {
+        sortAZ(filteredArray);
+    });
+    sort_desc.addEventListener("click", (e) => {
+        sortZA(filteredArray);
+    });
+    sort_mark.addEventListener("click", (e) => {
+        sortMarks(filteredArray);
+    });
+    sort_pass.addEventListener("click", (e) => {
+        sortPass(filteredArray);
+    });
+    sort_class.addEventListener("click", (e) => {
+        sortClass(filteredArray);
+    });
+    sort_gender.addEventListener("click", (e) => {
+        sortGender(filteredArray);
+    });
 })
 
 // Sort Full name A -> Z or Z -> A
@@ -53,9 +71,17 @@ const sort_desc = document.getElementById("sort-desc");
 sort_asc.addEventListener("click", sortAZ);
 sort_desc.addEventListener("click", sortZA);
 
-function sortAZ()
+function sortAZ(arr)
 {
-    const sortedArray = [...dataArray];
+    let sortedArray;
+    if (!arr)
+    {
+        sortedArray = [...dataArray];
+    }
+    else
+    {
+        sortedArray = [...arr];
+    }
     sortedArray.sort((a, b) => {
         const [a_fullName, b_fullName] = [a.first_name + " " + a.last_name, b.first_name + " " + b.last_name];
         if (a_fullName < b_fullName)
@@ -69,9 +95,17 @@ function sortAZ()
     });
     loadTable1(sortedArray);
 }
-function sortZA()
+function sortZA(arr)
 {
-    const sortedArray = [...dataArray];
+    let sortedArray;
+    if (!arr)
+    {
+        sortedArray = [...dataArray];
+    }
+    else
+    {
+        sortedArray = [...arr];
+    }
     sortedArray.sort((a, b) => {
         const [a_fullName, b_fullName] = [a.first_name + " " + a.last_name, b.first_name + " " + b.last_name];
         if (a_fullName > b_fullName)
@@ -90,9 +124,17 @@ function sortZA()
 const sort_mark = document.getElementById("sort-mark");
 sort_mark.addEventListener("click", sortMarks);
 
-function sortMarks()
+function sortMarks(arr)
 {
-    const sortedArray = [...dataArray];
+    let sortedArray;
+    if (!arr)
+    {
+        sortedArray = [...dataArray];
+    }
+    else
+    {
+        sortedArray = [...arr];
+    }
     sortedArray.sort((a, b) => {
         if (a.marks < b.marks)
         {
@@ -110,11 +152,21 @@ function sortMarks()
 const sort_pass = document.getElementById("sort-pass");
 sort_pass.addEventListener("click", sortPass);
 
-function sortPass()
+function sortPass(arr)
 {
-    const passArray = dataArray.filter((data) => {
-        return data.passing == true;
-    });
+    let passArray;
+    if (!arr)
+    {
+        passArray = dataArray.filter((data) => {
+            return data.passing == true;
+        });
+    }
+    else
+    {
+        passArray = arr.filter((data) => {
+            return data.passing == true;
+        });
+    }
     loadTable1(passArray);
 }
 
@@ -122,9 +174,17 @@ function sortPass()
 const sort_class = document.getElementById("sort-class");
 sort_class.addEventListener("click", sortClass);
 
-function sortClass()
+function sortClass(arr)
 {
-    const sortedArray = [...dataArray];
+    let sortedArray;
+    if (!arr)
+    {
+        sortedArray = [...dataArray];
+    }
+    else
+    {
+        sortedArray = [...arr];
+    }
     sortedArray.sort((a, b) => {
         if (a.class < b.class)
         {
@@ -142,15 +202,29 @@ function sortClass()
 const sort_gender = document.getElementById("sort-gender");
 sort_gender.addEventListener("click", sortGender);
 
-function sortGender()
+function sortGender(arr)
 {
-    const femaleArray = dataArray.filter((data) => {
-        return data.gender == "Female";
-    });
+    let femaleArray;
+    let maleArray;
+    if (!arr)
+    {
+        femaleArray = dataArray.filter((data) => {
+            return data.gender == "Female";
+        });
+        maleArray = dataArray.filter((data) => {
+            return data.gender == "Male";
+        });
+    }
+    else
+    {
+        femaleArray = arr.filter((data) => {
+            return data.gender == "Female";
+        });
+        maleArray = arr.filter((data) => {
+            return data.gender == "Male";
+        });
+    }
     loadTable1(femaleArray);
-    const maleArray = dataArray.filter((data) => {
-        return data.gender == "Male";
-    });
     table2.style.cssText = "display:block;";
     loadTable2(maleArray);
 }
