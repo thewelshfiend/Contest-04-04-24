@@ -40,6 +40,11 @@ const search_btn = document.getElementById("search");
 search_btn.addEventListener("click", (e) => {
     e.preventDefault();
     const searchValue = search_field.value;
+    if (!searchValue) {
+        dataArray.sort((a, b) => a.id - b.id);
+        loadTable1(dataArray);
+        return;
+    }
     const filteredArray = dataArray.filter((data) => {
         return data.first_name.toLowerCase().includes(searchValue.toLowerCase()) || data.last_name.toLowerCase().includes(searchValue.toLowerCase()) || data.email.toLowerCase().includes(searchValue.toLowerCase());
     });
