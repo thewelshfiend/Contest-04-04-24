@@ -68,20 +68,15 @@ search_btn.addEventListener("click", (e) => {
 // Sort Full name A -> Z or Z -> A
 const sort_asc = document.getElementById("sort-asc");
 const sort_desc = document.getElementById("sort-desc");
-sort_asc.addEventListener("click", sortAZ);
-sort_desc.addEventListener("click", sortZA);
+sort_asc.addEventListener("click", (e) => {
+    sortAZ(dataArray);
+});
+sort_desc.addEventListener("click", (e) => {
+    sortZA(dataArray);
+});
 
-function sortAZ(arr)
+function sortAZ(sortedArray)
 {
-    let sortedArray;
-    if (!arr)
-    {
-        sortedArray = [...dataArray];
-    }
-    else
-    {
-        sortedArray = [...arr];
-    }
     sortedArray.sort((a, b) => {
         const [a_fullName, b_fullName] = [a.first_name + " " + a.last_name, b.first_name + " " + b.last_name];
         if (a_fullName < b_fullName)
@@ -95,17 +90,8 @@ function sortAZ(arr)
     });
     loadTable1(sortedArray);
 }
-function sortZA(arr)
+function sortZA(sortedArray)
 {
-    let sortedArray;
-    if (!arr)
-    {
-        sortedArray = [...dataArray];
-    }
-    else
-    {
-        sortedArray = [...arr];
-    }
     sortedArray.sort((a, b) => {
         const [a_fullName, b_fullName] = [a.first_name + " " + a.last_name, b.first_name + " " + b.last_name];
         if (a_fullName > b_fullName)
@@ -122,19 +108,12 @@ function sortZA(arr)
 
 // Sort By Marks
 const sort_mark = document.getElementById("sort-mark");
-sort_mark.addEventListener("click", sortMarks);
+sort_mark.addEventListener("click", (e) => {
+    sortMarks(dataArray);
+});
 
-function sortMarks(arr)
+function sortMarks(sortedArray)
 {
-    let sortedArray;
-    if (!arr)
-    {
-        sortedArray = [...dataArray];
-    }
-    else
-    {
-        sortedArray = [...arr];
-    }
     sortedArray.sort((a, b) => {
         if (a.marks < b.marks)
         {
@@ -150,41 +129,26 @@ function sortMarks(arr)
 
 // Show only Passing
 const sort_pass = document.getElementById("sort-pass");
-sort_pass.addEventListener("click", sortPass);
+sort_pass.addEventListener("click", (e) => {
+    sortPass(dataArray);
+});
 
 function sortPass(arr)
 {
-    let passArray;
-    if (!arr)
-    {
-        passArray = dataArray.filter((data) => {
-            return data.passing == true;
-        });
-    }
-    else
-    {
-        passArray = arr.filter((data) => {
-            return data.passing == true;
-        });
-    }
+    const passArray = arr.filter((data) => {
+        return data.passing == true;
+    });
     loadTable1(passArray);
 }
 
 // Sort By Class
 const sort_class = document.getElementById("sort-class");
-sort_class.addEventListener("click", sortClass);
+sort_class.addEventListener("click", (e) => {
+    sortClass(dataArray);
+});
 
-function sortClass(arr)
+function sortClass(sortedArray)
 {
-    let sortedArray;
-    if (!arr)
-    {
-        sortedArray = [...dataArray];
-    }
-    else
-    {
-        sortedArray = [...arr];
-    }
     sortedArray.sort((a, b) => {
         if (a.class < b.class)
         {
@@ -200,30 +164,22 @@ function sortClass(arr)
 
 // Sort by Gender
 const sort_gender = document.getElementById("sort-gender");
-sort_gender.addEventListener("click", sortGender);
+sort_gender.addEventListener("click", (e) => {
+    sortGender(dataArray);
+});
 
 function sortGender(arr)
 {
     let femaleArray;
     let maleArray;
-    if (!arr)
-    {
-        femaleArray = dataArray.filter((data) => {
-            return data.gender == "Female";
-        });
-        maleArray = dataArray.filter((data) => {
-            return data.gender == "Male";
-        });
-    }
-    else
-    {
-        femaleArray = arr.filter((data) => {
-            return data.gender == "Female";
-        });
-        maleArray = arr.filter((data) => {
-            return data.gender == "Male";
-        });
-    }
+
+    femaleArray = arr.filter((data) => {
+        return data.gender == "Female";
+    });
+    maleArray = arr.filter((data) => {
+        return data.gender == "Male";
+    });
+
     loadTable1(femaleArray);
     table2.style.cssText = "display:block;";
     loadTable2(maleArray);
